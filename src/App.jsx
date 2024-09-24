@@ -4,7 +4,7 @@ import RootLayout from './layouts/RootLayout';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/CourseSeller';
 import NotFound from './components/not-found';
-import Login from './pages/LogIn';
+import Login from './pages/Login';
 
 
 
