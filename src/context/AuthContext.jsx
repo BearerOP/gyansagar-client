@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
+const baseUrl = import.meta.env.VITE_APP_BASE_BACKEND_URL;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         
         // Send request to backend to audit authToken as ''.
         const authToken = sessionStorage.getItem("authToken");
-        const response = await fetch('http://localhost:3000/api/v1/user/logout', {
+        const response = await fetch(`${baseUrl}/api/v1/user/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

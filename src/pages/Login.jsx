@@ -29,8 +29,8 @@ export default function Login() {
       console.log("Github login")
       await account.createOAuth2Session(
         'github',
-        'http://localhost:5173/',
-        'http://localhost:5173/abc'
+        import.meta.env.VITE_APP_FRONTEND_URL,
+        `${import.meta.env.VITE_APP_FRONTEND_URL}/abc`
       )
       const user = await fetchUserDetails()
       if (user) {
@@ -51,8 +51,8 @@ export default function Login() {
       console.log("Google login")
       await account.createOAuth2Session(
         'google',
-        'http://localhost:5173',
-        'http://localhost:5173/abc'
+        import.meta.env.VITE_APP_BASE_FRONTEND_URL,
+        `${import.meta.env.VITE_APP_BASE_FRONTEND_URL}/abc`
       )
       const user = await fetchUserDetails()
       if (user) {

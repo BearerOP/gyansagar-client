@@ -39,7 +39,7 @@ const fetchUserDetails = async () => {
       const user = await account.get();
       if (user) {
         // Call backend to store or fetch user and get token
-        const backendResponse = await fetch(`http://localhost:3000/api/v1/user/login`, {
+        const backendResponse = await fetch(`${import.meta.env.VITE_APP_BASE_BACKEND_URL}/api/v1/user/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
