@@ -30,7 +30,7 @@ export default function Login() {
       await account.createOAuth2Session(
         'github',
         import.meta.env.VITE_APP_FRONTEND_URL,
-        `${import.meta.env.VITE_APP_FRONTEND_URL}/abc`
+       'https://gyansagar-client.vercel.app/abc'
       )
       const user = await fetchUserDetails()
       if (user) {
