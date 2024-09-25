@@ -29,7 +29,7 @@ export default function Login() {
       console.log("Github login")
       await account.createOAuth2Session(
         'github',
-        import.meta.env.VITE_APP_FRONTEND_URL,
+        'https://gyansagar-client.vercel.app',
        'https://gyansagar-client.vercel.app/abc'
       )
       const user = await fetchUserDetails()
