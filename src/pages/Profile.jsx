@@ -75,10 +75,11 @@ export default function Profile() {
   }
 
   const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden p-4">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,_var(--tw-gradient-stops))] from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent" />
-      <Card className="w-full max-w-4xl mx-4 bg-background/80 dark:bg-background/30 backdrop-blur-sm shadow-xl border border-border relative z-10">
+      <Card className="w-full max-w-4xl bg-background/80 dark:bg-background/30 backdrop-blur-sm shadow-xl border border-border relative z-10">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-2xl font-bold text-foreground">Profile</CardTitle>
           <div className="flex space-x-2">
@@ -91,14 +92,14 @@ export default function Profile() {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
             <Avatar className="h-20 w-20">
               <AvatarImage src={avatar} alt={username} />
               <AvatarFallback className="bg-primary text-primary-foreground">
                 {username ? username.charAt(0).toUpperCase() : "?"}
               </AvatarFallback>
             </Avatar>
-            <div>
+            <div className="text-center sm:text-left">
               <h2 className="text-2xl font-bold text-foreground">{username}</h2>
               <p className="text-muted-foreground">{email}</p>
               <Badge variant={role === 'admin' ? "destructive" : "secondary"} className="mt-1">
@@ -123,9 +124,16 @@ export default function Profile() {
           <div className="bg-muted/50 p-4 rounded-lg">
             <h3 className="text-lg font-semibold mb-2 text-primary">My Courses</h3>
             {myCourses.length > 0 ? (
-              <ul className="list-disc list-inside text-foreground">
+              <ul className="space-y-2">
                 {myCourses.map((course) => (
-                  <li key={course._id}>{course.title}</li>
+                  <li key={course._id} className="bg-background/50 p-3 rounded-md">
+                    <h4 className="font-semibold text-foreground">{course.name}</h4>
+                    <p className="text-sm text-muted-foreground">Category: {course.category}</p>
+                    <p className="text-sm text-muted-foreground">Price: ${course.price.toFixed(2)}</p>
+                    {course.status && (
+                      <p className="text-sm text-muted-foreground">Status: {course.status}</p>
+                    )}
+                  </li>
                 ))}
               </ul>
             ) : (
@@ -136,9 +144,13 @@ export default function Profile() {
           <div className="bg-muted/50 p-4 rounded-lg">
             <h3 className="text-lg font-semibold mb-2 text-primary">Purchased Courses</h3>
             {purchasedCourses.length > 0 ? (
-              <ul className="list-disc list-inside text-foreground">
+              <ul className="space-y-2">
                 {purchasedCourses.map((course) => (
-                  <li key={course._id}>{course.title}</li>
+                  <li key={course._id} className="bg-background/50 p-3 rounded-md">
+                    <h4 className="font-semibold text-foreground">{course.name}</h4>
+                    <p className="text-sm text-muted-foreground">Category: {course.category}</p>
+                    <p className="text-sm text-muted-foreground">Price: ${course.price.toFixed(2)}</p>
+                  </li>
                 ))}
               </ul>
             ) : (
