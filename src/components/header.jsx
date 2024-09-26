@@ -74,7 +74,7 @@ export default function Header() {
         : 'bg-background h-20 border-b'
     }`}>
       <div className="container mx-auto px-4 h-full flex items-center">
-        <Link className="flex items-center justify-center" href="/">
+        <Link className="flex items-center justify-center" to={'/'}>
           <MountainIcon className={`transition-all duration-300 ease-in-out ${
             scrolled ? 'h-5 w-5' : 'h-6 w-6'
           }`} />
@@ -83,22 +83,22 @@ export default function Header() {
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
             scrolled ? 'text-xs' : 'text-sm'
-          }`} href="/">
+          }`} to={'/'}>
             Features
           </Link>
           <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
             scrolled ? 'text-xs' : 'text-sm'
-          }`} href="/">
+          }`} to={'/'}>
             Pricing
           </Link>
           <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
             scrolled ? 'text-xs' : 'text-sm'
-          }`} href="/">
+          }`} to={'/'}>
             About
           </Link>
           <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
             scrolled ? 'text-xs' : 'text-sm'
-          }`} href="/">
+          }`} to={'/'}>
             Contact
           </Link>
         </nav>
