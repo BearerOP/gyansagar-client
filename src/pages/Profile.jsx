@@ -6,31 +6,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader2, Edit, LogOut } from "lucide-react";
+import { Edit, LogOut } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import Path from "@/services/path";
+import Loader from "@/components/loader";
 
 export default function Profile() {
-  const { user, logout } = useAuth(); 
+  const { user, logout } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [logoutLoading, setLogoutLoading] = useState(false); // State for logout loading
+  const [logoutLoading, setLogoutLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
       try {
         const response = await Path.get('/api/v1/user/profile');
         setUserData(response.data);
-        
       } catch (error) {
         console.error("Failed to fetch user data:", error);
         setError(error.message);
       } finally {
-        setIsLoading(false); // End loading
+        setIsLoading(false);
       }
     };
 
@@ -38,7 +38,7 @@ export default function Profile() {
   }, []);
 
   const handleLogout = async () => {
-    setLogoutLoading(true); // Start logout loading
+    setLogoutLoading(true);
     try {
       await logout();
       navigate('/');
@@ -46,14 +46,14 @@ export default function Profile() {
       console.error("Logout failed:", error);
       setError("Logout failed. Please try again.");
     } finally {
-      setLogoutLoading(false); // End logout loading
+      setLogoutLoading(false);
     }
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-black">
-        <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+        <Loader className="h-8 w-8 animate-spin text-purple-500" />
       </div>
     );
   }
@@ -74,8 +74,17 @@ export default function Profile() {
     );
   }
 
-  const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
-  console.log(userData);
+  // Destructure user data and add fallbacks for each field
+  const {
+    avatar = '',
+    username = 'Unknown User',
+    email = 'No email provided',
+    role = 'user',
+    provider = 'N/A',
+    providerId = 'N/A',
+    myCourses = [],
+    purchasedCourses = []
+  } = userData;
 
   return (
     <div className="min-h-screen w-full bg-black text-white p-8">
@@ -87,7 +96,7 @@ export default function Profile() {
               <Edit className="h-4 w-4" />
             </Button>
             <Button variant="destructive" size="icon" onClick={handleLogout} disabled={logoutLoading}>
-              {logoutLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+              {logoutLoading ? <Loader className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
             </Button>
           </div>
         </CardHeader>
@@ -95,7 +104,9 @@ export default function Profile() {
           <div className="flex items-center space-x-4">
             <Avatar className="h-20 w-20">
               <AvatarImage src={avatar} alt={username} />
-              <AvatarFallback>{username.charAt(0).toUpperCase()}</AvatarFallback>
+              <AvatarFallback>
+                {username ? username.charAt(0).toUpperCase() : "?"}
+              </AvatarFallback>
             </Avatar>
             <div>
               <h2 className="text-2xl font-bold">{username}</h2>
