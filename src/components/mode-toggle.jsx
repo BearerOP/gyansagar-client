@@ -57,9 +57,9 @@ export function ModeToggle() {
 
 
       <div className="flex items-center gap-2">
-        <Sun className={`h-5 w-5 ${isDarkMode ? "text-primary/50" : "text-primary"}`} />
+        <Sun className={`h-5 w-5 ${isDarkMode ? "text-foreground/50" : "text-primary"}`} />
         <Switch checked={isDarkMode} onCheckedChange={handleThemeChange} />
-        <Moon className={`h-5 w-5 ${isDarkMode ? "text-primary" : "text-primary/50"}`} />
+        <Moon className={`h-5 w-5 ${isDarkMode ? "text-primary" : "text-foreground/50"}`} />
       </div>
   );
 }

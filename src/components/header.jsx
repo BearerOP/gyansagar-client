@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Loader from "@/components/loader"; // Import your Loader component
 import { Button } from "./ui/button";
 import { useAuth } from "@/context/AuthContext";
+import Logo from "./logo";
 
 export default function Header() {
   const { user, setUser, logout } = useAuth(); 
@@ -28,7 +29,6 @@ export default function Header() {
     setLoading(true);
     try {
       await logout(); // Call the logout function from useAuth
-      // console.log("User logged out successfully");
       navigate('/'); // Redirect to home or login page after logout
     } catch (error) {
       console.error("Logout failed", error);
@@ -68,39 +68,31 @@ export default function Header() {
   }, [user, setUser, scrolled])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 border-white/30 transition-all duration-300 ease-in-out ${
-      scrolled
-        ? 'bg-background/50 backdrop-blur-md h-14 rounded-lg my-4 mx-40 border px-4'
-        : 'bg-background h-20 border-b'
-    }`}>
-      <div className="container mx-auto px-4 h-full flex items-center">
-        <Link className="flex items-center justify-center" to={'/'}>
-          <MountainIcon className={`transition-all duration-300 ease-in-out ${
-            scrolled ? 'h-5 w-5' : 'h-6 w-6'
-          }`} />
-          <span className="sr-only">Gyan Sagar</span>
+    <header className={`fixed top-0 left-0 right-0 z-50 border-white/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
+      ${scrolled ? 'dark:bg-purple-400/10 bg-purple-900/50 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-purple-400/10 bg-purple-900/50 h-20'}
+      linear-gradient(137deg, rgba(17, 18, 20, .75) 4.87%, rgba(12, 13, 15, .9) 75.88%);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--Card-Border, hsla(0, 0%, 100%, .06));
+      border-radius: var(--rounding-lg);
+      box-shadow: inset 0 1px 1px 0 hsla(0, 0%, 100%, .15);
+      transition: height .3s ease, transform .3s ease;
+      transform: translateZ(0);
+      will-change: height, transform;
+    `}>
+      <div className="container mx-auto px-4 h-full flex items-center justify-between">
+        <Link className={`flex items-center justify-center gap-x-3 transition-transform duration-300 ease-in-out ${scrolled ? 'h-5 w-5' : 'inline-block	'}`} to={'/'}>
+        <Logo />
+          {/* <MountainIcon className={`transition-transform duration-300 ease-in-out ${scrolled ? 'h-5 w-5' : 'h-6 w-6'}`} /> */}
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
-            scrolled ? 'text-xs' : 'text-sm'
-          }`} to={'/'}>
-            Features
+          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${scrolled ? 'text-xs' : 'text-sm'}`} to={'/dashboard'}>
+          <Button>
+            Dashboard
+          </Button>
+
           </Link>
-          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
-            scrolled ? 'text-xs' : 'text-sm'
-          }`} to={'/'}>
-            Pricing
-          </Link>
-          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
-            scrolled ? 'text-xs' : 'text-sm'
-          }`} to={'/'}>
-            About
-          </Link>
-          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${
-            scrolled ? 'text-xs' : 'text-sm'
-          }`} to={'/'}>
-            Contact
-          </Link>
+          
         </nav>
         <div className="ml-4 flex items-center space-x-4">
           <ModeToggle />
@@ -110,9 +102,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center space-x-2 focus:outline-none">
-                  <Avatar className={`transition-all duration-300 ease-in-out ${
-                    scrolled ? 'h-7 w-7' : 'h-8 w-8'
-                  }`}>
+                  <Avatar className={`transition-all duration-300 ease-in-out ${scrolled ? 'h-7 w-7' : 'h-8 w-8'}`}>
                     <AvatarImage src={user.prefs.avatar} alt={user.name} />
                     <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
@@ -140,9 +130,9 @@ export default function Header() {
             </DropdownMenu>
           ) : (
             <Link to={'/login'}>
-            <Button>
-              Login
-            </Button>
+              <Button>
+                Login
+              </Button>
             </Link>
           )}
         </div>

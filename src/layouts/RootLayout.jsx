@@ -7,7 +7,7 @@ const RootLayout = () => {
   return (
     <div>
       <Header/>
-      <main className='flex flex-col justify-center items-center min-h-screen'>
+      <main className='flex flex-col justify-center items-center min-h-screen pt-20'>
         <Outlet/>
       </main>
       <Footer/>
