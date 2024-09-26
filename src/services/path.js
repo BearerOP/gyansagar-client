@@ -1,0 +1,35 @@
+import axios from 'axios';
+import { getToken } from './authService';
+
+// Determine baseURL based on environment
+const baseURL =
+  import.meta.env.VITE_APP_BASE_BACKEND_URL;
+
+const Path = axios.create({
+  baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add a request interceptor to include the token in the headers only for certain requests
+Path.interceptors.request.use(
+  (config) => {
+    // Only add the token for endpoints that require it
+    if (
+      !config.url.includes('/forgot-password') &&
+      !config.url.includes('/reset-password')
+    ) {
+      const token = getToken();
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export default Path;

@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useAuth } from "@/context/AuthContext"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Loader2, Edit, LogOut } from "lucide-react"
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Loader2, Edit, LogOut } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import Path from "@/services/path";
 
 export default function Profile() {
   const { user, logout } = useAuth(); 
@@ -22,14 +23,8 @@ export default function Profile() {
     const fetchUserData = async () => {
       setIsLoading(true); // Start loading
       try {
-        const response = await fetch(`${import.meta.env.VITE_APP_BASE_BACKEND_URL}/api/v1/user/profile`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch user data');
-        }
-
-        const userData = await response.json();
-        setUserData(userData);
+        const response = await Path.get('/api/v1/user/profile');
+        setUserData(response.data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
         setError(error.message);

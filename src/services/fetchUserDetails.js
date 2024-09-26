@@ -1,4 +1,6 @@
 import { account } from "@/services/appwrite";
+import Path from "./path";
+
 
 const fetchUserDetails = async () => {
   try {
@@ -17,20 +19,19 @@ const fetchUserDetails = async () => {
       // Handle avatar for Google provider
       else if (session.provider === "google") {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        
+
         const accessToken = session.providerAccessToken; // Access token for Google
-        const response = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-          method: "GET",
+        const response = await Path.get("https://www.googleapis.com/oauth2/v2/userinfo", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
 
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error("Failed to fetch user info from Google");
         }
 
-        const userInfo = await response.json();
+        const userInfo = response.data;
         avatarUrl = userInfo.picture; // Get the avatar URL
         await account.updatePrefs({ avatar: avatarUrl });
       }
@@ -39,48 +40,34 @@ const fetchUserDetails = async () => {
       const user = await account.get();
       if (user) {
         // Call backend to store or fetch user and get token
-        const backendResponse = await fetch(`${import.meta.env.VITE_APP_BASE_BACKEND_URL}/api/v1/user/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user.email,
-            username: user.name,
-            avatar: avatarUrl,
-            provider: session.provider,
-            providerId: session.providerUid, // ID of the provider user (GitHub or Google)
-          }),
+        const backendResponse = await Path.post(`/api/v1/user/login`, {
+          email: user.email,
+          username: user.name,
+          avatar: avatarUrl,
+          provider: session.provider,
+          providerId: session.providerUid, // ID of the provider user (GitHub or Google)
         });
 
-        if (!backendResponse.ok) {
+        if (backendResponse.status !== 200) {
           throw new Error("Failed to authenticate user with backend");
         }
 
-        const data = await backendResponse.json();
+        const data = backendResponse.data;
         console.log(data);
-        
 
-        // Store the token in localStorage
+        // Store the token in sessionStorage
         sessionStorage.setItem("authToken", data.token);
         sessionStorage.setItem("role", data.role);
 
-        // Log info for debug purposes
-        // if (token) {
-        //   console.log("New user created and authenticated:", user);
-        // } else {
-        //   console.log("Existing user authenticated:", user);
-        // }
-
         return user;
       } else {
-        // console.error("No user found.");
+        console.error("No user found.");
       }
     } else {
-      // console.error("No active session found");
+      console.error("No active session found");
     }
   } catch (error) {
-    // console.error("Failed to fetch user details", error);
+    console.error("Failed to fetch user details", error);
   }
 };
 
