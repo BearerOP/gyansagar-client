@@ -25,7 +25,7 @@ export default function Profile() {
       setIsLoading(true);
       try {
         const response = await Path.get('/api/v1/user/profile');
-        setUserData(response.data);
+        setUserData(response.data.user);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
         setError(error.message);
@@ -74,7 +74,7 @@ export default function Profile() {
     );
   }
 
-  const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
+  const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData.user;
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,_var(--tw-gradient-stops))] from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent" />
