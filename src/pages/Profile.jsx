@@ -25,6 +25,7 @@ export default function Profile() {
       try {
         const response = await Path.get('/api/v1/user/profile');
         setUserData(response.data);
+        
       } catch (error) {
         console.error("Failed to fetch user data:", error);
         setError(error.message);
@@ -74,6 +75,7 @@ export default function Profile() {
   }
 
   const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
+  console.log(userData);
 
   return (
     <div className="min-h-screen w-full bg-black text-white p-8">
