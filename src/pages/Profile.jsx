@@ -52,50 +52,40 @@ export default function Profile() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <Loader className="h-8 w-8 animate-spin text-purple-500" />
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <Loader className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black text-white">
-        <p aria-live="polite" className="text-red-500">{error}</p>
+      <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
+        <p aria-live="polite" className="text-destructive">{error}</p>
       </div>
     );
   }
 
   if (!userData) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+      <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
         <p>User not found.</p>
       </div>
     );
   }
 
-  // Destructure user data and add fallbacks for each field
-  const {
-    avatar = '',
-    username = 'Unknown User',
-    email = 'No email provided',
-    role = 'user',
-    provider = 'N/A',
-    providerId = 'N/A',
-    myCourses = [],
-    purchasedCourses = []
-  } = userData;
-
+  const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
   return (
-    <div className="min-h-screen w-full bg-black text-white p-8">
-      <Card className="max-w-4xl mx-auto bg-gray-900 border-gray-700">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,_var(--tw-gradient-stops))] from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent" />
+      <Card className="w-full max-w-4xl mx-4 bg-background/80 dark:bg-background/30 backdrop-blur-sm shadow-xl border border-border relative z-10">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-2xl font-bold">User Profile</CardTitle>
+          <CardTitle className="text-2xl font-bold text-foreground">Profile</CardTitle>
           <div className="flex space-x-2">
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" className="bg-transparent border-border text-foreground hover:bg-accent hover:text-accent-foreground">
               <Edit className="h-4 w-4" />
             </Button>
-            <Button variant="destructive" size="icon" onClick={handleLogout} disabled={logoutLoading}>
+            <Button variant="destructive" size="icon" onClick={handleLogout} disabled={logoutLoading} className="bg-destructive hover:bg-destructive/90">
               {logoutLoading ? <Loader className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
             </Button>
           </div>
@@ -104,55 +94,55 @@ export default function Profile() {
           <div className="flex items-center space-x-4">
             <Avatar className="h-20 w-20">
               <AvatarImage src={avatar} alt={username} />
-              <AvatarFallback>
+              <AvatarFallback className="bg-primary text-primary-foreground">
                 {username ? username.charAt(0).toUpperCase() : "?"}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h2 className="text-2xl font-bold">{username}</h2>
-              <p className="text-gray-400">{email}</p>
+              <h2 className="text-2xl font-bold text-foreground">{username}</h2>
+              <p className="text-muted-foreground">{email}</p>
               <Badge variant={role === 'admin' ? "destructive" : "secondary"} className="mt-1">
                 {role.charAt(0).toUpperCase() + role.slice(1)}
               </Badge>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Account Details</h3>
-              <p><span className="text-gray-400">Provider:</span> {provider}</p>
-              <p><span className="text-gray-400">Provider ID:</span> {providerId}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold mb-2 text-primary">Account Details</h3>
+              <p><span className="text-muted-foreground">Provider:</span> <span className="text-foreground">{provider}</span></p>
+              <p><span className="text-muted-foreground">Provider ID:</span> <span className="text-foreground">{providerId}</span></p>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Course Information</h3>
-              <p><span className="text-gray-400">My Courses:</span> {myCourses.length}</p>
-              <p><span className="text-gray-400">Purchased Courses:</span> {purchasedCourses.length}</p>
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold mb-2 text-primary">Course Information</h3>
+              <p><span className="text-muted-foreground">My Courses:</span> <span className="text-foreground">{myCourses.length}</span></p>
+              <p><span className="text-muted-foreground">Purchased Courses:</span> <span className="text-foreground">{purchasedCourses.length}</span></p>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-2">My Courses</h3>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold mb-2 text-primary">My Courses</h3>
             {myCourses.length > 0 ? (
-              <ul className="list-disc list-inside">
+              <ul className="list-disc list-inside text-foreground">
                 {myCourses.map((course) => (
                   <li key={course._id}>{course.title}</li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-400">No courses created yet.</p>
+              <p className="text-muted-foreground">No courses created yet.</p>
             )}
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Purchased Courses</h3>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold mb-2 text-primary">Purchased Courses</h3>
             {purchasedCourses.length > 0 ? (
-              <ul className="list-disc list-inside">
+              <ul className="list-disc list-inside text-foreground">
                 {purchasedCourses.map((course) => (
                   <li key={course._id}>{course.title}</li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-400">No courses purchased yet.</p>
+              <p className="text-muted-foreground">No courses purchased yet.</p>
             )}
           </div>
         </CardContent>
