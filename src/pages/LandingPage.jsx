@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/card";
 import fetchAllCourse from "@/services/fetchAllCourse";
 import { useNavigate } from "react-router-dom";
+import Loader from "@/components/loader";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const coursesRef = useRef(null); // Create a ref for the courses section
   
   const [allCourses, setAllCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,12 +42,18 @@ export default function LandingPage() {
   }, []);
 
   if (loading) {
-    return <p>Loading courses...</p>;
+    return <p><Loader/></p>;
   }
 
   if (error) {
     return <p>{error}</p>;
   }
+
+  const scrollToCourses = () => {
+    if (coursesRef.current) {
+      coursesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -65,14 +73,18 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button onClick={() => navigate('/dashboard')}>Start Learning</Button>
+                <Button onClick={scrollToCourses}>Start Learning</Button>
                 <Button variant="outline">Learn More</Button>
               </div>
             </div>
           </div>
         </BackgroundBeamsWithCollision>
       </section>
-      <section id="courses" className="min-h-screen flex items-center justify-center w-full py-12 md:py-24 lg:py-32 text-background dark:text-white bg-purple-100 dark:bg-purple-800">
+      <section 
+        ref={coursesRef}  // Attach the ref to the courses section
+        id="courses" 
+        className="min-h-screen flex items-center justify-center w-full py-12 md:py-24 lg:py-32 bg-purple-100 dark:bg-purple-800"
+      >
         <div className="container px-4 md:px-6">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
             Available Courses
