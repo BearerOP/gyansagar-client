@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,12 +8,44 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
+import fetchAllCourse from "@/services/fetchAllCourse";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  
+  const [allCourses, setAllCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        const response = await fetchAllCourse();
+        if (response.success) {
+          setAllCourses(response.data);  // Accessing response.data
+        } else {
+          throw new Error("Failed to fetch courses");
+        }
+      } catch (err) {
+        setError("Failed to fetch courses");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    getCourses();
+  }, []);
+
+  if (loading) {
+    return <p>Loading courses...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <>
@@ -45,14 +78,17 @@ export default function LandingPage() {
             Available Courses
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <Card key={i}>
+            {allCourses.map((course) => (
+              <Card key={course._id}>  {/* Use course._id as the key */}
                 <CardHeader>
-                  <CardTitle>Course Title {i}</CardTitle>
-                  <CardDescription>Brief description of the course</CardDescription>
+                  <CardTitle>{course.name}</CardTitle>
+                  <CardDescription>{course.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p>Course details and highlights...</p>
+                  <p>Duration: {course.duration} hours</p>
+                  <p>Price: ${course.price}</p>
+                  <p>Category: {course.category}</p>
+                  <p>Author: {course.author.username}</p> {/* Displaying author's username */}
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full">Enroll Now</Button>
@@ -63,5 +99,5 @@ export default function LandingPage() {
         </div>
       </section>
     </>
-  )
+  );
 }
