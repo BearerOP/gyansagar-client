@@ -10,9 +10,9 @@ import {
 import { Button } from "@/components/ui/button"; // Button component
 
 export function ModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState("system");
+  const [theme, setTheme] = useState("dark"); // Default theme is dark
 
   // Set the theme based on system preference or previously saved preference
   useEffect(() => {
@@ -22,10 +22,9 @@ export function ModeToggle() {
       setTheme(savedTheme);
       setIsDarkMode(savedTheme === "dark");
     } else {
-      // Default to system preference
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setTheme("system");
-      setIsDarkMode(prefersDark);
+      // Default to dark mode if no preference is saved
+      setTheme("dark");
+      setIsDarkMode(true);
     }
   }, []);
 
@@ -54,12 +53,14 @@ export function ModeToggle() {
   if (!mounted) return null; // Prevents rendering during SSR
 
   return (
-
-
-      <div className="flex items-center gap-2">
-        <Sun className={`h-5 w-5 ${isDarkMode ? "text-foreground/50" : "text-primary"}`} />
-        <Switch checked={isDarkMode} onCheckedChange={handleThemeChange} />
-        <Moon className={`h-5 w-5 ${isDarkMode ? "text-primary" : "text-foreground/50"}`} />
-      </div>
+    <div className="flex items-center gap-2">
+      <Sun className={`h-5 w-5 ${isDarkMode ? "text-foreground/50" : "text-primary"}`} />
+      <Switch
+        checked={isDarkMode}
+        onCheckedChange={handleThemeChange}
+        
+      />
+      <Moon className={`h-5 w-5 ${isDarkMode ? "text-primary" : "text-foreground/50"}`} />
+    </div>
   );
 }

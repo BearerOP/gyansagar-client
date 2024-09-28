@@ -1,6 +1,7 @@
-import React from 'react'
-import * as motion from "framer-motion/client"
+import React from 'react';
+import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
+
 const Logo = () => {
   return (
     <>
@@ -11,19 +12,18 @@ const Logo = () => {
           type: "spring",
           stiffness: 360,
           damping: 40,
-          delay:.5
-        }
-    }
+          delay: 0.5,
+        }}
       >
-        <Link to={'/'} className='font-bold text-2xl dark:bg-white/80 dark:text-background bg-foreground/80 text-background leading-[1.35] rounded-sm text-center align-middle shadow-inner size-9 inline-block	
-    '>
-        gs.
-          
+        <Link 
+          to={'/'}
+          className='font-bold text-2xl dark:bg-black/60 dark:text-foreground bg-background/80 text-black/70 leading-[1.35] rounded-sm text-center align-middle shadow-inner size-9 inline-block'
+        >
+          gs.
         </Link>
       </motion.div>
-      
     </>
-  )
-}
+  );
+};
 
 export default Logo;

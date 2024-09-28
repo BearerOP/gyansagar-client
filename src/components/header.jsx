@@ -71,7 +71,7 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 border-black/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
-      ${scrolled ? 'dark:bg-purple-300/30 bg-purple-900/50 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-purple-300/30 bg-purple-900/50 h-20'}
+      ${scrolled ? 'dark:bg-primary/30 bg-primary/50 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-primary/30 bg-primary/50 h-20'}
       linear-gradient(137deg, rgba(17, 18, 20, .75) 4.87%, rgba(12, 13, 15, .9) 75.88%);
       -webkit-backdrop-filter: blur(5px);
       backdrop-filter: blur(5px);
