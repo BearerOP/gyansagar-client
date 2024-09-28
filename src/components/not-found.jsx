@@ -19,13 +19,13 @@ export default function NotFound() {
             </div>
             <div className="space-x-4">
               <Button asChild>
-                <Link href="/">
+                <Link to={"/"}>
                   <Home className="mr-2 h-4 w-4" />
                   Go Home
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/search">
+                <Link to={"/search"}>
                   <Search className="mr-2 h-4 w-4" />
                   Search Courses
                 </Link>
