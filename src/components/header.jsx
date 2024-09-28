@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import { MountainIcon, User, LogOut } from "lucide-react";
@@ -23,7 +23,7 @@ export default function Header() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Initialize loading state to false
   const [fetchingUserDetails, setFetchingUserDetails] = useState(true); // New state for fetching user details
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
 
   const handleLogout = async () => {
     setLoading(true);
@@ -40,32 +40,34 @@ export default function Header() {
   useEffect(() => {
     const getUserDetails = async () => {      
       if (!user) {
-        setFetchingUserDetails(true)
-        const fetchedUser = await fetchUserDetails()
+        setFetchingUserDetails(true);
+        const fetchedUser = await fetchUserDetails();
         if (fetchedUser) {
-          setUser(fetchedUser)
+          setUser(fetchedUser);
         }
-        setFetchingUserDetails(false)
+        setFetchingUserDetails(false);
       } else {
-        setFetchingUserDetails(false)
+        setFetchingUserDetails(false);
       }
-    }
+    };
 
-    getUserDetails()
-    
+    getUserDetails();
+  }, [user, setUser]);
+
+  useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20
+      const isScrolled = window.scrollY > 20;
       if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
+        setScrolled(isScrolled);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [user, setUser, scrolled])
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 border-black/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
@@ -81,18 +83,15 @@ export default function Header() {
       will-change: height, transform;
     `}>
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
-        <Link className={`flex items-center justify-center gap-x-3 transition-transform duration-300 ease-in-out ${scrolled ? 'h-5 w-5' : 'inline-block	'}`} to={'/'}>
-        <Logo />
-          {/* <MountainIcon className={`transition-transform duration-300 ease-in-out ${scrolled ? 'h-5 w-5' : 'h-6 w-6'}`} /> */}
+        <Link className={`flex items-center justify-center gap-x-3 transition-transform duration-300 ease-in-out ${scrolled ? 'h-5 w-5' : 'inline-block'}`} to={'/'}>
+          <Logo />
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${scrolled ? 'text-xs' : 'text-sm'}`} to={'/dashboard'}>
-          <Button>
-            Dashboard
-          </Button>
-
+            <Button>
+              Dashboard
+            </Button>
           </Link>
-          
         </nav>
         <div className="ml-4 flex items-center space-x-4">
           <ModeToggle />
@@ -138,5 +137,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
