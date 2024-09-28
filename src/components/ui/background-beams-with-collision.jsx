@@ -64,13 +64,15 @@ export const BackgroundBeamsWithCollision = ({
   ];
 
   return (
-    (<div
+    (
+    <div
       ref={parentRef}
       className={cn(
         "h-[89.5vh] bg-white dark:bg-black relative flex items-center w-screen justify-center overflow-hidden",
         // h-screen if you want bigger
         className
       )}>
+
       {beams.map((beam) => (
         <CollisionMechanism
           key={beam.initialX + "beam-idx"}
@@ -189,6 +191,7 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
             top: `${collision.coordinates.y}px`,
             transform: "translate(-50%, -50%)",
           }} />
+          
       )}
     </AnimatePresence>
   </>);
