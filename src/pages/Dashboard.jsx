@@ -8,8 +8,9 @@ import { motion } from "framer-motion";
 import { Grid2X2, List } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@components/ui/separator";
+import { Input } from "@/components/ui/input";
 
-export default function AllCourses({ coursesRef }) {
+export default function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gridView, setGridView] = useState(true);
@@ -32,7 +33,6 @@ export default function AllCourses({ coursesRef }) {
 
   return (
     <div
-      ref={coursesRef}
       className="flex flex-col gap-4 w-[82.5vw] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-black text-gray-800 dark:text-gray-100 py-10"
     >
       <motion.div
@@ -45,11 +45,25 @@ export default function AllCourses({ coursesRef }) {
         }}
       >
         <h1 className="tracking-tighter text-5xl md:text-7xl font-extrabold text-gray-800 dark:text-primary">
-          Available Courses
+          Courses Dashboard
         </h1>
         <div className="flex justify-between items-center">
           <span className="text-lg xl:text-xl text-gray-600 dark:text-primary/75 font-medium">
             Manage your courses effectively
+          </span>
+        </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          <Input
+            type="text"
+            placeholder="Search any course"
+          />
+          <Button onClick={() => ('')}>
+            Search
+          </Button>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-lg xl:text-xl text-gray-600 dark:text-primary/75 font-medium">
+            My Courses
           </span>
           <div className="flex justify-between items-center">
             <Button
@@ -61,6 +75,7 @@ export default function AllCourses({ coursesRef }) {
             </Button>
           </div>
         </div>
+
       </motion.div>
 
       {loading ? (
@@ -110,11 +125,11 @@ export default function AllCourses({ coursesRef }) {
                   </div>
                   <Separator className='my-2 bg-primary/50' />
                   <span className="text-primary/80  text-sm">
-                      <span className="text-gray-500 text-sm">
+                    <span className="text-gray-500 text-sm">
 
-                        Author:
-                      </span> {course.author.username}
-                    </span>
+                      Author:
+                    </span> {course.author.username}
+                  </span>
                   <Separator className='my-2 bg-primary/50' />
                   <div className="flex justify-between items-center">
                     <span className="text-primary/80 text-sm">
