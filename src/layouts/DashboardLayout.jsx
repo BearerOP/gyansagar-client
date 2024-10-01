@@ -1,32 +1,32 @@
-import { useState, useEffect } from "react"
-import { Link, Outlet } from "react-router-dom"
-import { motion } from 'framer-motion'
-import { Grid2X2, List, Home, User, Settings } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import CommandMenu from "@/components/command-menu"
-import { useLocation } from "react-router-dom"
-import { Search } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Grid2X2, List } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export default function DashboardLayout() {
   const { pathname } = useLocation();
+  
+  // Retrieve the user's role from session storage
+  const userRole = sessionStorage.getItem("role");
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top of the page
+    window.scrollTo(0, 0); // Scroll to top of the page on route change
   }, [pathname]);
-  const [open, setOpen] = useState(false)
 
+  // Define navigation items, conditionally rendering for 'user' role
   const navigationItems = [
-    { name: "Home", href: "/", icon: Home },
     { name: "All Courses", href: "/courses/all", icon: Grid2X2 },
     { name: "Purchased Courses", href: "/courses/purchased", icon: List },
     { name: "My Courses", href: "/courses/my", icon: Grid2X2 },
     { name: "Published Courses", href: "/courses/published", icon: List },
     { name: "Draft Courses", href: "/courses/draft", icon: Grid2X2 },
-    { name: "Profile", href: "/profile", icon: User },
-    { name: "Settings", href: "/settings", icon: Settings },
-  ]
+  ];
+
+  // Filter items to show only for 'user' role
+  const filteredItems = userRole === 'user' 
+    ? navigationItems.filter(item => ["All Courses", "Purchased Courses"].includes(item.name)) 
+    : navigationItems;
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-black text-gray-800 dark:text-gray-100 py-10">
@@ -46,39 +46,24 @@ export default function DashboardLayout() {
           <span className="text-lg xl:text-xl text-gray-600 dark:text-primary/75 font-medium">
             Manage your courses effectively
           </span>
-          <div className="flex flex-col md:flex-row gap-4">
-            <Button 
-              className='flex gap-3 bg-primary/20 hover:bg-primary/30 border-primary border-[.5px]
-              text-muted-foreground' 
-              variant="outline" 
-              onClick={() => setOpen(true)}
-            >
-              <span>
-                <Search className='size-4'/>
-              </span>
-              <span>Search anything</span>
-              <Badge className='rounded-[5px] w-fit bg-primary/60'>⌘ K</Badge>
-            </Button>
-            <CommandMenu open={open} setOpen={setOpen} items={navigationItems} />
-          </div>
         </div>
       </motion.div>
 
       <Separator className="my-4" />
 
       <nav className="flex space-x-4 mb-4">
-        {navigationItems.slice(1, 6).map((item) => (
-          <Link 
-            key={item.name} 
+        {filteredItems.map((item) => (
+          <Link
+            key={item.name}
             to={item.href}
-            className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+            className={`text-gray-600 hover:text-primary p-2 px-4 rounded-full dark:text-gray-300 dark:hover:text-primary
+            ${pathname === item.href ? 'bg-primary/30 text-primary font-bold' : ''}`}
           >
             {item.name}
           </Link>
         ))}
       </nav>
-
       <Outlet />
     </div>
-  )
+  );
 }

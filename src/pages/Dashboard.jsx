@@ -94,7 +94,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                 </div>
-                <Link to={`/course/${course._id}`}>
+                <Link to={`/courses/${course._id}`}>
                   <Button className="w-full bg-primary text-white hover:bg-primary-dark dark:bg-primary/90 dark:hover:bg-primary/80">
                     View Course
                   </Button>

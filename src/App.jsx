@@ -7,6 +7,8 @@ import Profile from '@pages/Profile';
 import DashboardLayout from './layouts/DashboardLayout';
 import PurchasedCourses from './components/purchased-courses';
 import AllCourses from './components/all-courses';
+import MyCourses from './components/my-courses';
+import ViewCourse from './components/view-course';
 
 const App = () => {
   return (
@@ -18,10 +20,11 @@ const App = () => {
           <Route element={<DashboardLayout />}>
             <Route path="/courses/all" element={<AllCourses />} />
             <Route path="/courses/purchased" element={<PurchasedCourses />} />
-            <Route path="/courses/my" element={<PurchasedCourses />} />
+            <Route path="/courses/my" element={<MyCourses />} />
             <Route path="/courses/published" element={<PurchasedCourses />} />
             <Route path="/courses/draft" element={<PurchasedCourses />} />
           </Route>
+            <Route path="/courses/:id" element={<ViewCourse />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Route>

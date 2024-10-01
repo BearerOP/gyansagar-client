@@ -24,12 +24,6 @@ export default function NotFound() {
                   Go Home
                 </Link>
               </Button>
-              <Button variant="outline" asChild>
-                <Link to={"/search"}>
-                  <Search className="mr-2 h-4 w-4" />
-                  Search Courses
-                </Link>
-              </Button>
             </div>
           </div>
         </div>

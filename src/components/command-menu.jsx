@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useNavigate } from "react-router-dom";
 import {
   CommandDialog,
   CommandEmpty,
@@ -11,7 +12,9 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 
-export default function CommandMenu({ open, setOpen, items, onSelect }) {
+export default function CommandMenu({ open, setOpen, items }) {
+  const navigate = useNavigate(); // Use React Router's useNavigate
+
   React.useEffect(() => {
     const down = (e) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -26,7 +29,7 @@ export default function CommandMenu({ open, setOpen, items, onSelect }) {
 
   const handleSelect = (item) => {
     setOpen(false)
-    onSelect(item) // Use the onSelect prop for navigation
+    navigate(item.href); // Use navigate to redirect to the selected item's href
   }
 
   return (

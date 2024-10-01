@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MountainIcon, User, LogOut } from "lucide-react";
+import { MountainIcon, User, LogOut, Search, Home, Grid2X2, List, Settings } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { ModeToggle } from "./mode-toggle";
 import fetchUserDetails from "@/services/fetchUserDetails";
@@ -17,13 +17,41 @@ import Loader from "@/components/loader"; // Import your Loader component
 import { Button } from "./ui/button";
 import { useAuth } from "@/context/AuthContext";
 import Logo from "./logo";
+import { Badge } from "@/components/ui/badge";
+import CommandMenu from "@/components/command-menu";
 
 export default function Header() {
+  const [open, setOpen] = useState(false);
   const { user, setUser, logout } = useAuth(); 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Initialize loading state to false
   const [fetchingUserDetails, setFetchingUserDetails] = useState(true); // New state for fetching user details
   const [scrolled, setScrolled] = useState(false);
+
+  // Get the user's role from session storage
+  const userRole = sessionStorage.getItem("role");
+
+  const navigationItems = [
+    { name: "Home", href: "/", icon: Home },
+    { name: "All Courses", href: "/courses/all", icon: Grid2X2 },
+    { name: "Purchased Courses", href: "/courses/purchased", icon: List },
+    { name: "My Courses", href: "/courses/my", icon: Grid2X2 },
+    { name: "Published Courses", href: "/courses/published", icon: List },
+    { name: "Draft Courses", href: "/courses/draft", icon: Grid2X2 },
+    { name: "Profile", href: "/profile", icon: User },
+    { name: "Settings", href: "/settings", icon: Settings },
+  ];
+
+  // Filter navigation items based on the role
+  const filteredItems = navigationItems.filter(item => {
+    if (item.name === "Home" || item.name === "Profile" || item.name === "Settings") {
+      return true; // Visible to all
+    }
+    if (userRole === "user") {
+      return item.name === "All Courses" || item.name === "Purchased Courses"; // Only these visible for users with 'user' role
+    }
+    return true; // Show all for roles other than 'user'
+  });
 
   const handleLogout = async () => {
     setLoading(true);
@@ -71,7 +99,7 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 border-black/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
-      ${scrolled ? 'dark:bg-primary/30 bg-primary/50 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-primary/30 bg-primary/50 h-20'}
+      ${scrolled ? 'dark:bg-primary/20 bg-primary/20 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-primary/20 bg-primary/20 h-20'}
       linear-gradient(137deg, rgba(17, 18, 20, .75) 4.87%, rgba(12, 13, 15, .9) 75.88%);
       -webkit-backdrop-filter: blur(5px);
       backdrop-filter: blur(5px);
@@ -87,11 +115,21 @@ export default function Header() {
           <Logo />
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className={`text-sm font-medium hover:underline underline-offset-4 transition-all duration-300 ease-in-out ${scrolled ? 'text-xs' : 'text-sm'}`} to={'/courses/all'}>
-            <Button>
-              Dashboard
+          <div className="flex flex-col md:flex-row gap-4">
+            <Button 
+              className='flex gap-3 bg-primary/20 hover:bg-primary/30 border-primary border-[.5px]
+              text-muted-foreground' 
+              variant="outline" 
+              onClick={() => setOpen(true)}
+            >
+              <span>
+                <Search className='size-4'/>
+              </span>
+              <span>Search anything</span>
+              <Badge className='rounded-[5px] w-fit bg-primary/60'>⌘ K</Badge>
             </Button>
-          </Link>
+            <CommandMenu open={open} setOpen={setOpen} items={filteredItems} />
+          </div>
         </nav>
         <div className="ml-4 flex items-center space-x-4">
           <ModeToggle />

@@ -4,32 +4,32 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Link } from "react-router-dom"
 import { toast } from "sonner"
-import fetchPurchasedCourse from "@/services/fetchPurchasedCourse"
+import fetchMyCourse from "@/services/fetchMyCourse"
 
-export default function PurchasedCourses() {
+export default function MyCourses() {
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchPurchasedCourses = async () => {
+    const fetchMyCourses = async () => {
       try {
-        const data = await fetchPurchasedCourse();
+        const data = await fetchMyCourse();
         console.log(data);
         
         setCourses(data.data)
         setLoading(false)
       } catch (error) {
-        console.error("Error fetching purchased courses:", error)
+        console.error("Error fetching my courses:", error)
         setLoading(false)
-        toast.error("Failed to fetch purchased courses. Please try again.")
+        toast.error("Failed to fetch my courses. Please try again.")
       }
     }
 
-    fetchPurchasedCourses()
+    fetchMyCourses()
   }, [])
 
   if (loading) {
-    return <div className="text-center">Loading purchased courses...</div>
+    return <div className="text-center">Loading My courses...</div>
   }
 
   return (
@@ -39,9 +39,9 @@ export default function PurchasedCourses() {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      <h2 className="text-3xl font-bold">Purchased Courses</h2>
+      <h2 className="text-3xl font-bold">My Courses</h2>
       {courses.length === 0 ? (
-        <p>You haven't purchased any courses yet.</p>
+        <p>You haven't uploaded any course yet.</p>
       ) : (
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (

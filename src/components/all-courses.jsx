@@ -34,8 +34,8 @@ export default function AllCourses() {
         <h2 className="text-3xl font-bold">All Courses</h2>
         <Button
           onClick={() => setGridView(!gridView)}
-          variant="ghost"
-          className="text-gray-600 dark:text-gray-100"
+          variant="outline"
+          className="text-primary/60 dark:text-primary"
         >
           {gridView ? <List className="h-4 w-4" /> : <Grid2X2 className="h-4 w-4" />}
         </Button>
@@ -94,7 +94,7 @@ export default function AllCourses() {
                     </span>
                   </div>
                 </div>
-                <Link to={`/course/${course._id}`}>
+                <Link to={`/courses/${course._id}`}>
                   <Button className="w-full bg-primary text-white hover:bg-primary-dark dark:bg-primary/90 dark:hover:bg-primary/80">
                     View Course
                   </Button>
