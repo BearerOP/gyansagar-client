@@ -23,8 +23,8 @@ const App = () => {
             <Route path="/courses/my" element={<MyCourses />} />
             <Route path="/courses/published" element={<PurchasedCourses />} />
             <Route path="/courses/draft" element={<PurchasedCourses />} />
-          </Route>
             <Route path="/courses/:id" element={<ViewCourse />} />
+          </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Route>
