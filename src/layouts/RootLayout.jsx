@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { Outlet } from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
 
 const RootLayout = () => {
   return (
@@ -11,6 +12,7 @@ const RootLayout = () => {
         <Outlet/>
       </main>
       <Footer/>
+      <Toaster/>
     </div>
   );
 };

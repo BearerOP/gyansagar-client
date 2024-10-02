@@ -57,8 +57,8 @@ export default function MyCourses() {
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   Progress: {course.progress || '0'}%
                 </span>
-                <Link to={`/courses/${course._id}`}>
-                  <Button>Continue Learning</Button>
+                <Link to={`/courses/edit/${course._id}`}>
+                  <Button>Update Course</Button>
                 </Link>
               </div>
             </motion.div>

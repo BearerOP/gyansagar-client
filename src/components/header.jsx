@@ -33,13 +33,14 @@ export default function Header() {
 
   const navigationItems = [
     { name: "Home", href: "/", icon: Home },
+    { name: "Profile", href: "/profile", icon: User },
+    { name: "Settings", href: "/settings", icon: Settings },
     { name: "All Courses", href: "/courses/all", icon: Grid2X2 },
     { name: "Purchased Courses", href: "/courses/purchased", icon: List },
     { name: "My Courses", href: "/courses/my", icon: Grid2X2 },
     { name: "Published Courses", href: "/courses/published", icon: List },
     { name: "Draft Courses", href: "/courses/draft", icon: Grid2X2 },
-    { name: "Profile", href: "/profile", icon: User },
-    { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Create Course", href: "/courses/create", icon: User },
   ];
 
   // Filter navigation items based on the role

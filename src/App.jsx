@@ -9,6 +9,8 @@ import PurchasedCourses from './components/purchased-courses';
 import AllCourses from './components/all-courses';
 import MyCourses from './components/my-courses';
 import ViewCourse from './components/view-course';
+import CreateCourse from './components/create-course';
+import EditCourse from './components/edit-course';
 
 const App = () => {
   return (
@@ -24,6 +26,9 @@ const App = () => {
             <Route path="/courses/published" element={<PurchasedCourses />} />
             <Route path="/courses/draft" element={<PurchasedCourses />} />
             <Route path="/courses/:id" element={<ViewCourse />} />
+            <Route path="/courses/edit/:id" element={<EditCourse />} />
+            <Route path="/courses/create" element={<CreateCourse/>}
+            />
           </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />

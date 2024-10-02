@@ -1,7 +1,7 @@
 import Path from "./path";
 
 
-const addNewCourse = async(course)=>{
+export const createCourse = async(course)=>{
     const { name, description, price, category, duration } = course;
     try {
         const response = await Path.post('/api/v1/course/add',{
@@ -19,4 +19,3 @@ const addNewCourse = async(course)=>{
 
 }
 
-export default addNewCourse;

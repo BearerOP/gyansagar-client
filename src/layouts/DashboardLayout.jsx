@@ -21,6 +21,7 @@ export default function DashboardLayout() {
     { name: "My Courses", href: "/courses/my", icon: Grid2X2 },
     { name: "Published Courses", href: "/courses/published", icon: List },
     { name: "Draft Courses", href: "/courses/draft", icon: Grid2X2 },
+    { name: "Create Course", href: "/courses/create", icon: List },
   ];
 
   // Filter items to show only for 'user' role
