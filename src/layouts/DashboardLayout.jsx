@@ -30,7 +30,7 @@ export default function DashboardLayout() {
     : navigationItems;
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-black text-gray-800 dark:text-gray-100 py-10">
+    <div className="flex flex-col align-top gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-black text-gray-800 dark:text-gray-100 py-10 mt-20">
       <motion.div
         className="flex flex-col gap-4"
         initial={{ opacity: 0, y: -20 }}
