@@ -33,16 +33,24 @@ export default function CommandMenu({ open, setOpen, items }) {
   }
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Type a command or search..." />
+    <CommandDialog open={open} onOpenChange={setOpen} className="bg-primary shadow-lg rounded-lg">
+      <CommandInput 
+        placeholder="Type a command or search..." 
+      />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty className="space-y-2 text-primary/50">No results found.</CommandEmpty>
         <CommandGroup heading="Navigation">
           {items.map((item) => (
-            <CommandItem key={item.name} onSelect={() => handleSelect(item)}>
-              <item.icon className="mr-2 h-4 w-4" />
-              <span>{item.name}</span>
-              {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
+            <CommandItem 
+              className="flex items-center p-2 hover:bg-primary/10 transition-colors duration-200"
+              key={item.name} 
+              onSelect={() => handleSelect(item)}
+            >
+              <item.icon className="mr-2 h-4 w-4 text-primary/60" />
+              <span className="text-primary/60">{item.name}</span>
+              {item.shortcut && (
+                <CommandShortcut className="text-primary/50">{item.shortcut}</CommandShortcut>
+              )}
             </CommandItem>
           ))}
         </CommandGroup>
