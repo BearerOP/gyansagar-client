@@ -19,6 +19,7 @@ import { useAuth } from "@/context/AuthContext";
 import Logo from "./logo";
 import { Badge } from "@/components/ui/badge";
 import CommandMenu from "@/components/command-menu";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -99,10 +100,15 @@ export default function Header() {
   }, [scrolled]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-10 border-black/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
+    <motion.header
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.3, ease: "easeInOut", type: "spring",  }}
+    initial={{ y: -20, opacity: 0 }}
+    className={`fixed top-0 left-0 right-0 z-10 border-black/10 transition-all duration-300 ease-in-out border-[.1px] inset-drop-shadow-2xl min-w-fit
       ${scrolled ? 'dark:bg-primary/20 bg-primary/20 backdrop-blur-md h-[70px] rounded-xl my-4 mx-40 px-4' : 'dark:bg-primary/20 bg-primary/20 h-20'}
       linear-gradient(137deg, rgba(17, 18, 20, .75) 4.87%, rgba(12, 13, 15, .9) 75.88%);
       -webkit-backdrop-filter: blur(5px);
+      
       backdrop-filter: blur(5px);
       border: 1px solid var(--Card-Border, hsla(0, 0%, 100%, .06));
       border-radius: var(--rounding-lg);
@@ -175,6 +181,6 @@ export default function Header() {
           )}
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
