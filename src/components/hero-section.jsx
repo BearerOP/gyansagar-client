@@ -44,6 +44,8 @@ export default function HeroSection() {
   };
 
   return (
+    <>
+
     <div className="flex flex-col justify-center">
       <div className="container px-4 md:px-6 relative">
         <div className="flex flex-col items-center space-y-4 text-center">
@@ -226,5 +228,6 @@ export default function HeroSection() {
         </motion.svg>
       </div>
     </div>
+    </>
   );
 }

@@ -71,42 +71,44 @@ export default function CreateCourse() {
       <Button
         onClick={() => navigate("/courses/all")}
         variant="ghost"
-        className="mb-6 text-primary hover:text-primary-dark"
+        className="mb-6 text-primary hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to All Courses
       </Button>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-primary/10 backdrop-blur-md rounded-lg shadow-lg overflow-hidden border border-primary/20 dark:border-primary/20 transition-all duration-300 hover:shadow-primary/20 dark:hover:shadow-primary/20">
         <div className="p-6 md:p-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Create New Course</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Create New Course</h1>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <Label htmlFor="name">Course Name</Label>
+              <Label htmlFor="name" className="text-foreground">Course Name</Label>
               <Input
                 id="name"
                 name="name"
                 value={courseData.name}
                 onChange={handleInputChange}
                 required
+                className="border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm"
               />
             </div>
 
             <div>
-              <Label htmlFor="description">Course Description</Label>
+              <Label htmlFor="description" className="text-foreground">Course Description</Label>
               <Textarea
                 id="description"
                 name="description"
                 value={courseData.description}
                 onChange={handleInputChange}
                 required
+                className="border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="price">Price (USD)</Label>
+                <Label htmlFor="price" className="text-foreground">Price (USD)</Label>
                 <Input
                   id="price"
                   name="price"
@@ -116,10 +118,11 @@ export default function CreateCourse() {
                   value={courseData.price}
                   onChange={handleInputChange}
                   required
+                  className="border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm"
                 />
               </div>
               <div>
-                <Label htmlFor="duration">Duration (hours)</Label>
+                <Label htmlFor="duration" className="text-foreground">Duration (hours)</Label>
                 <Input
                   id="duration"
                   name="duration"
@@ -128,19 +131,20 @@ export default function CreateCourse() {
                   value={courseData.duration}
                   onChange={handleInputChange}
                   required
+                  className="border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm"
                 />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category" className="text-foreground">Category</Label>
               <Select onValueChange={(value) => handleSelectChange("category", value)}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background/90 dark:bg-background/90 backdrop-blur-md">
                   <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
+                    <SelectLabel className="text-foreground">Categories</SelectLabel>
                     <SelectItem value="programming">Programming</SelectItem>
                     <SelectItem value="design">Design</SelectItem>
                     <SelectItem value="business">Business</SelectItem>
@@ -151,14 +155,14 @@ export default function CreateCourse() {
             </div>
 
             <div>
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status" className="text-foreground">Status</Label>
               <Select onValueChange={(value) => handleSelectChange("status", value)} defaultValue="draft">
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border-primary/30 focus:ring-primary dark:focus:ring-primary bg-background/5 backdrop-blur-sm">
                   <SelectValue placeholder="Select a status" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background/90 dark:bg-background/90 backdrop-blur-md">
                   <SelectGroup>
-                    <SelectLabel>Status</SelectLabel>
+                    <SelectLabel className="text-foreground">Status</SelectLabel>
                     <SelectItem value="draft">Draft</SelectItem>
                     <SelectItem value="published">Published</SelectItem>
                   </SelectGroup>
@@ -167,7 +171,11 @@ export default function CreateCourse() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={loading} className="w-full md:w-auto">
+              <Button 
+                type="submit" 
+                disabled={loading} 
+                className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 shadow-lg hover:shadow-primary/30"
+              >
                 {loading ? "Creating Course..." : "Create Course"}
               </Button>
             </div>
