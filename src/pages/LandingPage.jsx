@@ -30,13 +30,13 @@ export default function LandingPage() {
       </section>
 
       {/* Placeholder content */}
-      <div className="h-screen bg-white dark:bg-black flex items-center justify-center">
+      {/* <div className="h-screen bg-white dark:bg-black flex items-center justify-center">
         <h1 className="text-xl text-gray-800 dark:text-gray-200">Explore Courses</h1>
-      </div>
+      </div> */}
 
       {/* Courses section */}
-      <section ref={coursesRef} className="w-full py-12 bg-gray-100 dark:bg-gray-900 flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Our Courses</h2>
+      <section ref={coursesRef} className="w-full py-12 bg-gray-100 dark:bg-background flex flex-col items-center">
+
         <div className="w-[80vw]">
           <AllCourses />
         </div>

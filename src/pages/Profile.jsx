@@ -77,7 +77,7 @@ export default function Profile() {
   const { avatar, username, email, role, provider, providerId, myCourses, purchasedCourses } = userData;
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden p-4 ">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden pt-24 p-4 z-0">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,_var(--tw-gradient-stops))] from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent" />
       <Card className="w-full max-w-4xl bg-background/80 dark:bg-background/30 backdrop-blur-sm shadow-xl border border-border relative z-10">
         <CardHeader className="flex flex-row items-center justify-between">
