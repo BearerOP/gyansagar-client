@@ -42,7 +42,7 @@ export default function AllCourses() {
         setCourses((prevCourses) => [...prevCourses, ...data.data]);
         setTotalPages(data.totalPages);
         setLoadingSkeleton(false);  // Stop showing skeleton after courses are loaded
-      }, 100); // 0.2 sec delay
+      }, ); // 0.2 sec delay
     } catch (error) {
       toast.error("Failed to fetch courses. Please try again.");
       setLoadingSkeleton(false);
