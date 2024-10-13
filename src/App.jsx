@@ -13,6 +13,7 @@ import CreateCourse from './components/create-course';
 import EditCourse from './components/edit-course';
 import PublishedCourses from './components/published-courses';
 import DraftCourses from './components/draft-courses';
+import BgGradient from './components/bg-gradient';
 
 const App = () => {
   return (
