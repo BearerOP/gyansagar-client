@@ -13,12 +13,14 @@ import CreateCourse from './components/create-course';
 import EditCourse from './components/edit-course';
 import PublishedCourses from './components/published-courses';
 import DraftCourses from './components/draft-courses';
-import BgGradient from './components/bg-gradient';
+import { Background } from './components/ui/background';
+// import BgGradient from './components/bg-gradient';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path='/bg' element={<Background />} />
         <Route path='/login' element={<Login />} />
         <Route element={<RootLayout />}>
           <Route path="/" element={<LandingPage />} />

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
